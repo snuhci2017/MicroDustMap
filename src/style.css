@@ -1,0 +1,63 @@
+.background {
+    fill: none;
+    pointer-events: all;
+}
+
+svg circle {
+    fill: orange;
+    opacity: .5;
+    stroke: white;
+}
+svg circle:hover {
+    fill: red;
+    stroke: #333;
+}
+svg text {
+    pointer-events: none;
+}
+svg .municipality {
+    fill: skyblue;
+    stroke: #fff;
+}
+.municipality-label {
+    fill: #738;
+    font-size: 12px;
+    font-weight: 300;
+    text-anchor: middle;
+}
+.municipalities :hover {
+    fill: orange;
+}
+.feature {
+    fill: skyblue;
+    cursor: pointer;
+}
+
+.feature.active {
+    fill: red;
+}
+
+.mesh {
+    fill: none;
+    stroke: #fff;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+svg #map text {
+    color: #333;
+    font-size: 10px;
+    text-anchor: middle;
+}
+svg #places text {
+    color: #777;
+    font: 10px sans-serif;
+    text-anchor: start;
+}
+.municipality-boundary {
+    fill: none;
+    stroke: #fff;
+    stroke-opacity: .25;
+    stroke-width: .5px;
+    pointer-events: none;
+}
