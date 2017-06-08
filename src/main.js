@@ -107,3 +107,38 @@ function reset() {
         .style("stroke-width", "1.5px")
         .attr("transform", "");
 }
+
+function Interpolate(start, end, steps, count) {
+    var s = start,
+        e = end,
+        final = s + (((e - s) / steps) * count);
+    return Math.floor(final);
+}
+
+function Color(_r, _g, _b) {
+    var r, g, b;
+    var setColors = function(_r, _g, _b) {
+        r = _r;
+        g = _g;
+        b = _b;
+    };
+
+    setColors(_r, _g, _b);
+    this.getColors = function() {
+        var colors = {
+            r: r,
+            g: g,
+            b: b
+        };
+        return colors;
+    };
+}
+
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : null;
+}

@@ -1,0 +1,7 @@
+*.log
+*.idea
+*.a
+!lib.a
+/TODO
+build/
+doc/*.txt

@@ -34,7 +34,7 @@ svg .municipality {
 }
 
 .feature.active {
-    fill: red;
+    fill: #F25D12;
 }
 
 .mesh {
