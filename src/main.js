@@ -96,6 +96,8 @@ function clicked(d) {
         .duration(750)
         .style("stroke-width", 1.5 / scale + "px")
         .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+
+
 }
 
 function reset() {
@@ -142,3 +144,4 @@ function hexToRgb(hex) {
         b: parseInt(result[3], 16)
     } : null;
 }
+

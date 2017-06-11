@@ -2,20 +2,26 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="src/htmlStyle.css">
     <link rel="stylesheet" type="text/css" href="src/style.css">
 </head>
 
 <body>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="http://d3js.org/topojson.v1.min.js"></script>
-    <div id="show" style="display:none;" class="show_list"> Hello</div>
-    <input type="button" name="showing" value="Show Div" onclick="showDiv()"/>
+
+<label class="switch">
+    <input type="checkbox" id="showing" value="Show Div" onclick="showDiv()"/>
+    <div class="slider"></div>
+</label>
+
+<script src='src/main.js'></script>
+<script src='src/graph.js'></script>
+
     <!--
-    <div id="option">
-        <input name="updateButton" type="button" value="Update" onclick= 'showDiv()' />
-    </div>
-    -->
-    <script src='src/main.js'></script>
-    <script src='src/graph.js'></script>
+        <div id="option">
+            <input name="updateButton" type="button" value="Update" onclick= 'showDiv()' />
+        </div>
+        -->
 </body>
 </html>
