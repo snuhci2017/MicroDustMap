@@ -6,7 +6,7 @@
         width = 1200 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
-    var parseDate = d3.time.format("%Y%m%d%H").parse;
+    var parseDate = d3.time.format("%Y%m%d").parse;
 
     var x = d3.time.scale()
         .range([0, width]);
@@ -35,7 +35,7 @@
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("data/16_Jan_seoul.csv", function(error, data) {
+    d3.csv("data/Hightest_seoul_pm10_2016.csv", function(error, data) {
         color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 
         data.forEach(function(d) {
@@ -84,12 +84,12 @@
             .attr("data-legend",function(d) { return d.name})
             .style("stroke", function(d) { return color(d.name); });
 
-        city.append("text")
-            .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
-            .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.PM10) + ")"; })
-            .attr("x", 3)
-            .attr("dy", ".25em")
-            .text(function(d) { return d.name; });
+//        city.append("text")
+//            .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+//            .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.PM10) + ")"; })
+//            .attr("x", 3)
+//            .attr("dy", ".25em")
+//            .text(function(d) { return d.name; });
 
 
         legend = svg.append("g")

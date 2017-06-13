@@ -63,7 +63,7 @@ svg #places text {
 }
 
 path {
-    stroke: skyblue;
+    stroke: white;
     stroke-width: 2;
     fill: none;
 }
