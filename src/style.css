@@ -64,7 +64,7 @@ svg #places text {
 
 path {
     stroke: white;
-    stroke-width: 2;
+    stroke-width: .25;
     fill: none;
 }
 

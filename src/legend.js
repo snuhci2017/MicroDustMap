@@ -2,6 +2,11 @@
  * Created by sille on 2017-06-13.
  */
 (function() {
+    d3.select("body")
+        .append("h2")
+        .text("2016 Seoul pm10(㎛)의 수치가 매월 최고치 일때")
+        .attr('class', 'title');
+
     var margin = {top: 20, right: 80, bottom: 30, left: 50},
         width = 1200 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
@@ -35,7 +40,7 @@
         .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("data/Hightest_seoul_pm10_2016.csv", function(error, data) {
+    d3.csv("data/Highest_seoul_pm10_2016.csv", function(error, data) {
         color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 
         data.forEach(function(d) {
@@ -50,6 +55,9 @@
                 })
             };
         });
+
+        var mylegend = new d3.legend(svg, data);
+        mylegend.legends = [];
 
         x.domain(d3.extent(data, function(d) { return d.date; }));
 
@@ -82,6 +90,7 @@
             .attr("class", "line")
             .attr("d", function(d) { return line(d.values); })
             .attr("data-legend",function(d) { return d.name})
+            .attr("id", "p_line")
             .style("stroke", function(d) { return color(d.name); });
 
 //        city.append("text")
@@ -123,7 +132,8 @@
                 var self = d3.select(this)
                 items[self.attr("data-legend")] = {
                     pos : self.attr("data-legend-pos") || this.getBBox().y,
-                    color : self.attr("data-legend-color") != undefined ? self.attr("data-legend-color") : self.style("fill") != 'none' ? self.style("fill") : self.style("stroke")
+                    color : self.attr("data-legend-color") != undefined ? self.attr("data-legend-color") :
+                        self.style("fill") != 'none' ? self.style("fill") : self.style("stroke")
                 }
             })
 
@@ -146,6 +156,24 @@
                 .attr("cx",0)
                 .attr("r","0.4em")
                 .style("fill",function(d) { console.log(d.value.color);return d.value.color})
+                // circle click hide
+                .on("click", function(d){
+                    // Determine if current line is visible
+                    if(typeof(d.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                        e.dataSeries.visible = false;
+                    } else {
+                        dataSeries.visible = true;
+                    }
+                    e.line.render();
+
+                    //var active = items[i].active ? false : true,
+                        //newOpacity = active ? 0 : 1;
+                    // Hide or show the elements
+                    //d3.select("line").style("opacity", newOpacity);
+                    // Update whether or not the elements are active
+                    //items[i].line.active = false;
+                });
+
 
             // Reposition and resize the box
             var lbbox = li[0][0].getBBox()

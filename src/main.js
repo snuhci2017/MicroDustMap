@@ -21,23 +21,17 @@ var width = 960,
     height = 600,
     active = d3.select(null);
 
+var datasets = ["data/16_Jan_seoul.csv", "data/16_Feb_seoul.csv", "data/16_Mar_seoul.csv", "data/16_Apr_seoul.csv",
+    "data/16_May_seoul.csv", "data/16_Jun_seoul.csv", "data/16_Jul_seoul.csv", "data/16_Aug_seoul.csv",
+    "data/16_Sep_seoul.csv", "data/16_Oct_seoul.csv", "data/16_Nov_seoul.csv", "data/16_Dec_seoul.csv", ]
+
 var projection = d3.geo.mercator()
     .center([128.938, 36.2455])
     .scale(4500)
     .translate([width/2, height/2]);
 
-var config = {
-    "main_category": "Jongno-gu",
-    "avg_category": "Nation Average",
-    "color1": '#c3e2ff',
-    "color2": '#08306B',
-    "stateDataColumn": "provider_state",
-    "valueDataColumn": "med_average_covered_charges"
-};
-
 var path = d3.geo.path().projection(projection);
 
-<!--"body" to "#chart" -->
 var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
@@ -105,8 +99,6 @@ function clicked(d) {
         .duration(750)
         .style("stroke-width", 1.5 / scale + "px")
         .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
-
-
 }
 
 function reset() {

@@ -4,22 +4,57 @@
     <meta charset="utf-8">
     <script src="https://d3js.org/d3.v3.min.js"></script>
     <script src="https://d3js.org/topojson.v1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="src/htmlStyle.css">
     <link rel="stylesheet" type="text/css" href="src/style.css">
 </head>
 
 <body>
-<label class="switch">
-    <input type="checkbox" id="showing" value="Show Div" onclick="showDiv()"/>
-    <div class="slider"></div>
-</label>
 
 <script src='src/main.js'></script>
-<script src="src/legend.js"></script>
-<script src='src/graph.js'></script>
+<br>
+<button type="button" id="day" value="Show Div" class="btn btn-primary" onclick="return popup('index2.html', 'notes')">
+    일일 대기정보
+</button>
+
+<button type="button" id="monResSeoul" value="Show Div" class="btn btn-primary" onclick="src/legend.js">
+    2016년도 서울 종합대기정보
+</button>
+
+<script type="text/javascript">
+    function popup(mylink, windowname) {
+        if (! window.focus)return true;
+        var href;
+        if (typeof(mylink) == 'string') href=mylink;
+        else href=mylink.href;
+        window.open(href, windowname, 'width=620,height=500,scrollbars=yes');
+        return false;
+    }
+</script>
+
+<script type="text/javascript">
+    var myLink = document.getElementById('monResSeoul');
+
+    myLink.onclick = function(){
+
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "src/legend.js";
+        document.getElementsByTagName("head")[0].appendChild(script);
+        return false;
+
+    }
+</script>
+
+
+
     <!--
+    <script src = 'src/legend.js'></script>
+    <A HREF="index2.html" onClick="return popup(this, 'notes')">my popup</A>
+    <script src='src/graph.js'></script>
+    <a href="index2.html" class="btn btn-default">Go to button</a>
          <div id="option">
              <input name="updateButton" type="button" value="Update" onclick= 'showDiv()' />
          </div>
