@@ -4,12 +4,14 @@
 (function() {
     d3.select("body")
         .append("h2")
-        .text("2016 Seoul pm10(㎛)의 수치가 매월 최고치 일때")
+        .text("2016 Seoul 매월 pm10(㎛) 최고 수치")
+        .append("h5")
+        .text("월당 3 ~ 4개의 수치 정보를 추출")
         .attr('class', 'title');
 
     var margin = {top: 20, right: 80, bottom: 30, left: 50},
-        width = 1200 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        width = 960 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
 
     var parseDate = d3.time.format("%Y%m%d").parse;
 
@@ -103,14 +105,14 @@
 
         legend = svg.append("g")
             .attr("class","legend")
-            .attr("transform","translate(950,10)")
+            .attr("transform","translate(730,10)")
             .style("font-size","12px")
             .call(d3.legend)
 
         setTimeout(function() {
             legend
-                .style("font-size","10px")
-                .attr("data-style-padding",10)
+                .style("font-size","12px")
+                .attr("data-style-padding",7.5)
                 .call(d3.legend)
         },1000)
 

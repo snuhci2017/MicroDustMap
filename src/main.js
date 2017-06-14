@@ -1,29 +1,13 @@
 /**
  * Created by sille on 2017-06-02.
  */
-//    d3.csv("place.csv", function(data) {
-    //        places.selectAll("circle")
-    //            .data(data)
-    //            .enter().append("circle")
-    //            .attr("cx", function(d) { return projection([d.lon, d.lat])[0]; })
-    //            .attr("cy", function(d) { return projection([d.lon, d.lat])[1]; })
-    //            .attr("r", 10);
-
-    //        places.selectAll("text")
-    //            .data(data)
-    //            .enter().append("text")
-    //            .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })
-    //            .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })
-    //            .text(function(d) { return d.name });
-    //    });
-
 var width = 960,
     height = 600,
     active = d3.select(null);
 
 var datasets = ["data/16_Jan_seoul.csv", "data/16_Feb_seoul.csv", "data/16_Mar_seoul.csv", "data/16_Apr_seoul.csv",
     "data/16_May_seoul.csv", "data/16_Jun_seoul.csv", "data/16_Jul_seoul.csv", "data/16_Aug_seoul.csv",
-    "data/16_Sep_seoul.csv", "data/16_Oct_seoul.csv", "data/16_Nov_seoul.csv", "data/16_Dec_seoul.csv", ]
+    "data/16_Sep_seoul.csv", "data/16_Oct_seoul.csv", "data/16_Nov_seoul.csv", "data/16_Dec_seoul.csv"];
 
 var projection = d3.geo.mercator()
     .center([128.938, 36.2455])
@@ -44,44 +28,83 @@ g.append("rect")
     .attr("width", width)
     .attr("height", height);
 
-var places = svg.append("g").attr("id", "places");
-
 d3.json("map/skorea_municipalities_topo_simple.json", function(error, data) {
     if(error) throw error;
 
     var features = topojson.feature(data, data.objects.skorea_municipalities_geo).features;
 
-    // focus on cursor
-    g.append("g")
-        .attr("class", "municipalities")
-        .selectAll("path")
-        .data(features)
-        .enter().append("path")
-        .attr("class", function(d) { console.log(); return "municipality c" + d.properties.code })
-        .attr("d", path)
-        .attr("class", "feature")
-        .on("click", clicked)
-        .append("title")
-        .text(function(d) { return d.properties.name; });
 
-    g.append("path")
-        .datum(topojson.feature(data, data.objects.skorea_municipalities_geo, function (a, b) { return a !== b }))
-        .attr("class", "mesh")
-        .attr("d", path);
+    d3.csv("data/Busan_pm10.csv", function(data) {
+        var rateById = {};
+        data.forEach(function(d) {
+            rateById[d.province] = +d.value;
+        });
 
-    //   g.append("g")
-    //       .selectAll("text")
-    //      .data(features)
-    //     .enter().append("text")
-    //    .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
-    //   .attr("d", path)
-    //  .attr("class", "feature")
-    // .on("click", clicked)
-    //.attr("dy", ".35em")
-    //.attr("class", "municipality-label")
-    //.text(function(d) { return d.properties.name; })
+        // focus on cursor
+        g.append("g")
+            .attr("class", "municipalities")
+            .selectAll("path")
+            .data(features)
+            .enter().append("path")
+            .attr("d", path)
+            .attr("class", "municipality-label")
+            .attr("class", function (d) {
+                console.log();
+                return "municipality c" + d.properties.code
+            })
+            //.attr("class", "feature")
+            .on("click", clicked)
+            .on("mouseenter", cursorEnter)
+            .on("mouseleave", cursorLeave);
+            //.append("title")
+            //.text(function (d) {
+             //   return d.properties.name;
+    });
+
+        g.append("path")
+            .datum(topojson.feature(data, data.objects.skorea_municipalities_geo, function (a, b) {
+                return a !== b
+            }))
+            .attr("class", "mesh")
+            .attr("d", path);
+
+    // 각 시,도,군 별 지도위 이름 표시
+//       g.append("g")
+//           .selectAll("text")
+//           .data(features)
+//           .enter().append("text")
+//           .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })
+//           .attr("d", path)
+//           .attr("class", "feature")
+//           .on("click", clicked)
+//           .attr("dy", ".35em")
+//           .attr("class", "municipality-label")
+//           .text(function(d) { return d.properties.name; })
 });
 
+function cursorEnter(d) {
+    var x, y;
+    var centroid = path.centroid(d);
+    var text = d.properties.name;
+
+    x = centroid[0];
+    y = centroid[1];
+
+    g.append("text")
+        .attr("x", x)
+        .attr("y", y)
+        .attr("dy", ".35em")
+        .attr("font-size", "15px")
+        .attr("text-anchor", "middle")
+        .attr("class", "cursor_enter")
+        .text(text);
+}
+
+function cursorLeave(d) {
+    $(".cursor_enter").remove();
+}
+
+// 맵 클릭시 줌인
 function clicked(d) {
     if (active.node() === this) return reset();
     active.classed("active", false);
@@ -101,6 +124,7 @@ function clicked(d) {
         .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
 }
 
+// 줌인된 맵 재 클릭시 줌 아웃
 function reset() {
     active.classed("active", false);
     active = d3.select(null);

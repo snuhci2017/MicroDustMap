@@ -2,12 +2,13 @@
  * Created by Dragon on 2017-06-14.
  */
 var svg = dimple.newSvg("#chartContainer", 590, 400);
+
 d3.tsv("data/Jun_14_2017.tsv", function (data) {
     // Latest period only
-    dimple.filterData(data, "Date", "01/12/2012");
+    dimple.filterData(data, "Date", "06/14/2017");
     // Create the chart
     var myChart = new dimple.chart(svg, data);
-    myChart.setBounds(60, 30, 420, 330)
+    myChart.setBounds(60, 30, 380, 330)
 
     // Create a standard bubble of SKUs by PM10 and PM2.5
     // We are coloring by Si-do as that will be the key in the legend
@@ -27,10 +28,10 @@ d3.tsv("data/Jun_14_2017.tsv", function (data) {
     // object to split it onto 2 lines.  This technique works with any
     // number of lines, it isn't dimple specific.
     svg.selectAll("title_text")
-        .data(["Click legend to","show/hide owners:"])
+        .data(["Click rect to","show/hide Si-do:"])
         .enter()
         .append("text")
-        .attr("x", 490)
+        .attr("x", 450)
         .attr("y", function (d, i) { return 90 + i * 14; })
         .style("font-family", "sans-serif")
         .style("font-size", "10px")
@@ -67,6 +68,6 @@ d3.tsv("data/Jun_14_2017.tsv", function (data) {
             myChart.data = dimple.filterData(data, "Si-do", filterValues);
             // Passing a duration parameter makes the chart animate. Without
             // it there is no transition
-            myChart.draw(800);
+            myChart.draw(900);
         });
 });
