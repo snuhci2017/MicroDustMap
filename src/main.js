@@ -33,33 +33,16 @@ d3.json("map/skorea_municipalities_topo_simple.json", function(error, data) {
 
     var features = topojson.feature(data, data.objects.skorea_municipalities_geo).features;
 
-
-    d3.csv("data/Busan_pm10.csv", function(data) {
-        var rateById = {};
-        data.forEach(function(d) {
-            rateById[d.province] = +d.value;
-        });
-
-        // focus on cursor
-        g.append("g")
-            .attr("class", "municipalities")
-            .selectAll("path")
-            .data(features)
-            .enter().append("path")
-            .attr("d", path)
-            .attr("class", "municipality-label")
-            .attr("class", function (d) {
-                console.log();
-                return "municipality c" + d.properties.code
-            })
-            //.attr("class", "feature")
-            .on("click", clicked)
-            .on("mouseenter", cursorEnter)
-            .on("mouseleave", cursorLeave);
-            //.append("title")
-            //.text(function (d) {
-             //   return d.properties.name;
-    });
+     g.append("g")
+        .attr("class", "municipalities")
+        .selectAll("path")
+        .data(features)
+        .enter().append("path")
+        .attr("d", path)
+        .attr("class", "feature")
+         .on("click", clicked)
+         .on("mouseenter", cursorEnter)
+         .on("mouseleave", cursorLeave);
 
         g.append("path")
             .datum(topojson.feature(data, data.objects.skorea_municipalities_geo, function (a, b) {
