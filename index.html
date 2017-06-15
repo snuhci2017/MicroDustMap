@@ -2,54 +2,73 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <script src="https://d3js.org/d3.v3.min.js"></script>
-    <script src="https://d3js.org/topojson.v1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="src/htmlStyle.css">
     <link rel="stylesheet" type="text/css" href="src/style.css">
 </head>
 
 <body>
+<div class = container>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <div class="wrapper">
+        <button type="button" id="day" value="Show Div" class="btn btn-primary" onclick="return popup('Legendchart.html', 'notes')">
+            일일 대기정보
+        </button>
+        <button type="button" id="total_2015_data" value="Show Div" class="btn btn-primary">
+            2015년도 전국 종합대기정보
+        </button>
+        <button type="button" id="monResSeoul" value="Show Div" class="btn btn-primary">
+            2016년도 서울 종합대기정보
+        </button>
+    </div>
 
-<div class="wrapper">
-    <button type="button" id="day" value="Show Div" class="btn btn-primary" onclick="return popup('Legendchart.html', 'notes')">
-        일일 대기정보
-    </button>
-    <button type="button" id="total_2015_data" value="Show Div" class="btn btn-primary" onclick="return popup('Ringchart.html', 'notes')">
-        2015년도 전국 종합대기정보
-    </button>
-    <button type="button" id="monResSeoul" value="Show Div" class="btn btn-primary" onclick="src/legend.js">
-        2016년도 서울 종합대기정보
-    </button>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+    <div id="Map">
+        <script src='src/map.js'></script>
+    </div>
+    <!--
+    <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+    <div id="chartContainer">
+        <script src="src/Legendchart.js"></script>
+        <script src="src/Ringchart.js"></script>
+    </div>
+    -->
+
+    <div id="sideinfo">
+
+    </div>
+    <!-- 팝업창 호출 -->
+    <script type="text/javascript">
+        function popup(mylink, windowname) {
+            if (! window.focus)return true;
+            var href;
+            if (typeof(mylink) == 'string') href=mylink;
+            else href=mylink.href;
+            window.open(href, windowname, 'width=620,height=500,scrollbars=yes');
+            return false;
+        }
+    </script>
+
+    <!-- legend.js 호출 -->
+    <script type="text/javascript">
+        var monResSeoul_Link = document.getElementById('monResSeoul');
+        var total_2015_data_Link = document.getElementById('total_2015_data');
+
+        monResSeoul_Link.onclick = function(){
+            var script = document.createElement("script");
+            script.src = "src/legend.js";
+            document.getElementsByTagName("head")[0].appendChild(script);
+            return false;
+        }
+        total_2015_data_Link.onclick = function(){
+            var script = document.createElement("script");
+            script.src = "src/Barchart.js";
+            document.getElementsByTagName("head")[0].appendChild(script);
+            return false;
+        }
+    </script>
 </div>
-<script src='src/main.js'></script>
-<!-- 팝업창 호출 -->
-<script type="text/javascript">
-    function popup(mylink, windowname) {
-        if (! window.focus)return true;
-        var href;
-        if (typeof(mylink) == 'string') href=mylink;
-        else href=mylink.href;
-        window.open(href, windowname, 'width=620,height=500,scrollbars=yes');
-        return false;
-    }
-</script>
-
-<!-- legend.js 호출 -->
-<script type="text/javascript">
-    var monResSeoul_Link = document.getElementById('monResSeoul');
-    var total_2015_data_link = document.getElementById('total_2015_data');
-
-    monResSeoul_Link.onclick = function(){
-        var script = document.createElement("script");
-        script.src = "src/legend.js";
-        document.getElementsByTagName("head")[0].appendChild(script);
-        return false;
-    }
-</script>
-
 </body>
 </html>

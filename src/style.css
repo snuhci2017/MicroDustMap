@@ -96,9 +96,25 @@ body {
 }
 
 .wrapper {
-    text-align: left;
-    padding: 30px 120px;
-    magin: 0 auto;
+    position: fixed;
+    height: 35px;
+}
+
+#Map {
+    width: 960px;
+    height: 500px;
+}
+
+#sideinfo {
+    margin: 0 auto;
+    padding-top: 70px;
+}
+
+#container {
+    background-color: #F0F0F0;
+    width:1200px;
+    margin: 0 auto;
+    padding: 10px;
 }
 
 .button {

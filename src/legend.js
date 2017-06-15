@@ -2,7 +2,7 @@
  * Created by sille on 2017-06-13.
  */
 (function() {
-    d3.select("body")
+    d3.select("#sideinfo")
         .append("h2")
         .text("2016 Seoul 매월 pm10(㎛) 최고 수치")
         .append("h5")
@@ -36,7 +36,7 @@
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.PM10); });
 
-    var svg = d3.select("body").append("svg")
+    var svg = d3.select("#sideinfo").append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
