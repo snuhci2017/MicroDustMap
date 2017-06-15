@@ -9,9 +9,9 @@ Micro Dust Map
 <img src="image/mdm_background1.PNG" width="500px">
 
 ## 참고자료
-[Air Korea](https://www.airkorea.or.kr/index)<br />
-[South Korea maps](https://github.com/southkorea/southkorea-maps)<br />
-[D3](https://github.com/d3/d3)
+대기환경 정보: [Air Korea](https://www.airkorea.or.kr/index)<br />
+korea map data: [South Korea maps](https://github.com/southkorea/southkorea-maps)<br />
+d3 api: [D3](https://github.com/d3/d3)
 
 페르소나
 --------------------------
